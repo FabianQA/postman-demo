@@ -1,0 +1,287 @@
+{
+	"info": {
+		"_postman_id": "63ed4112-1416-45d7-b97e-a9d829e1511c",
+		"name": "MyFirstCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26572744"
+	},
+	"item": [
+		{
+			"name": "Adding a user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json()\r",
+							"\r",
+							"pm.collectionVariables.set('userID', jsonData.id)\r",
+							"\r",
+							"pm.test('Status code should be 201', function(){\r",
+							"    pm.response.to.have.status(201)\r",
+							"})\r",
+							"\r",
+							"pm.test('email should match', function(){\r",
+							"    pm.expect(jsonData.email).to.be.eq('ENNwjAw@yopm5ailll.com')\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "d7888fda48603ebe2b4123a7c6ab1852ecf68ac5a33bf8dfd02ff7c194cea862",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"ENG_NAME\",\r\n    \"gender\": \"male\",\r\n    \"email\": \"ENNwjAw@yopm5ailll.com\",\r\n    \"status\": \"active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}//{{url}}/{{visibility}}/{{version}}/users",
+					"host": [
+						"{{protocol}}"
+					],
+					"path": [
+						"",
+						"{{url}}",
+						"{{visibility}}",
+						"{{version}}",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Getting user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code should be 200', function(){\r",
+							"    pm.response.to.have.status(200)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "d7888fda48603ebe2b4123a7c6ab1852ecf68ac5a33bf8dfd02ff7c194cea862",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}//{{url}}/{{visibility}}/{{version}}/users/{{userID}}",
+					"host": [
+						"{{protocol}}"
+					],
+					"path": [
+						"",
+						"{{url}}",
+						"{{visibility}}",
+						"{{version}}",
+						"users",
+						"{{userID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Code should be 200', function(){\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"const jsonData = pm.response.json()\r",
+							"\r",
+							"pm.test('Status should be inactive', function(){\r",
+							"    pm.expect(jsonData.status).to.have.eq('inactive')\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "d7888fda48603ebe2b4123a7c6ab1852ecf68ac5a33bf8dfd02ff7c194cea862",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"ENG_NAME\",\r\n    \"gender\": \"male\",\r\n    \"email\": \"ENNwjAw@yopm5ailll.com\",\r\n    \"status\": \"inactive\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}//{{url}}/{{visibility}}/{{version}}/users/{{userID}}",
+					"host": [
+						"{{protocol}}"
+					],
+					"path": [
+						"",
+						"{{url}}",
+						"{{visibility}}",
+						"{{version}}",
+						"users",
+						"{{userID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deleting user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code should be 204', function(){\r",
+							"    pm.response.to.have.status(204)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "d7888fda48603ebe2b4123a7c6ab1852ecf68ac5a33bf8dfd02ff7c194cea862",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}//{{url}}/{{visibility}}/{{version}}/users/{{userID}}",
+					"host": [
+						"{{protocol}}"
+					],
+					"path": [
+						"",
+						"{{url}}",
+						"{{visibility}}",
+						"{{version}}",
+						"users",
+						"{{userID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "d7888fda48603ebe2b4123a7c6ab1852ecf68ac5a33bf8dfd02ff7c194cea862",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "userID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "version",
+			"value": "v2",
+			"type": "string"
+		},
+		{
+			"key": "url",
+			"value": "gorest.co.in",
+			"type": "string"
+		},
+		{
+			"key": "visibility",
+			"value": "public",
+			"type": "string"
+		},
+		{
+			"key": "protocol",
+			"value": "https:",
+			"type": "string"
+		}
+	]
+}
